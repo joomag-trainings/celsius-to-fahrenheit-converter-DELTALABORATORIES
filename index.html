@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Converter</title>
+    <link href="Styles/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Passion+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+</head>
+<body>
+ <div class="Main">
+       <div id="celsius">
+           <div id="celsiusRed">
+
+           </div>
+       </div>
+     <div id="fahrenheit">
+         <div id="fahrenheitRed">
+
+         </div>
+     </div>
+     <div class="container">
+         <p class="Name">
+             Enter The temperature
+         </p>
+         <input id="tempInputCelsius" type="text" placeholder="   Enter Temperature In Celsius" oninput="disableF()"/>
+         <input id="tempInputFahrenheit" type="text" placeholder="   Enter Temperature in Fahrenheit" oninput="disableC()"/>
+         <button id="Button">Calculate</button>
+     </div>
+ </div>
+<script>
+
+    var celsiusInput;
+    var fahrenheitInput;
+    var inputC = document.getElementById('tempInputCelsius');
+    var inputF = document.getElementById('tempInputFahrenheit');
+    var celsiusInd = document.getElementById('celsiusRed');
+    var fahrenheitInd = document.getElementById('fahrenheitRed');
+    var disabledC = 0;
+    var disabledF = 0;
+    var button = document.getElementById('Button');
+    button.addEventListener('click', calculate)
+
+    function calculate(){
+
+            celsiusInput = inputC.value;
+            fahrenheitInput = inputF.value;
+             if(disabledF == 1 && celsiusInput <= 100){
+                 var fahrenheit = celsiusInput * 1.8 +32 ;
+                 var parsed = parseInt(fahrenheit);
+                 inputF.placeholder =  parsed;
+                 fahrenheitInd.style.height = (parsed / 212) *100 + '%';
+                 fahrenheitInd.style.top = 100 -((parsed / 212) *100) + '%';
+                 celsiusInd.style.height = celsiusInput + '%';
+                 celsiusInd.style.top = 100 - celsiusInput + '%';
+
+             }
+             else if(disabledC == 1 && celsiusInput <= 100) {
+                 var celsius = (fahrenheitInput - 32) / 1.8 ;
+                 var parsed = parseInt(celsius);
+                 inputF.placeholder =  parsed;
+                 celsiusInd.style.height = parsed + '%';
+                 celsiusInd.style.top = 100 - parsed + '%';
+                 fahrenheitInd.style.height = (fahrenheitInput / 212) *100 + '%';
+                 fahrenheitInd.style.top = 100 -((fahrenheitInput / 212) *100) + '%';
+             }
+
+    }
+    function disableF(){
+        inputF.disabled = 'disabled';
+        disabledF = 1;
+
+    }
+    function disableC(){
+        inputC.disabled = 'disabled';
+        disabledC = 1;
+    }
+
+
+
+
+</script>
+</body>
+</html>
